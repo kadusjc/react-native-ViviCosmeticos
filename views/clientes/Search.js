@@ -1,14 +1,28 @@
 import { Actions } from 'react-native-router-flux'
+import { TextInput, Button, Divider } from 'react-native-paper';
+import PhoneInput from 'react-native-phone-input'
+
 import React, { Component } from 'react'
 import CustomerService from '../../services/customer-service'
 import CustomerItem from './CustomerItem'
+
 
 import {View, FlatList, StyleSheet, Text} from 'react-native'
 
 export default class Search extends Component<{}> {
   state = {
     isLoading: false,
+    phoneNumber: '',
+    name: '',
     customers: []    
+  }
+
+  setName (name) {
+    this.setState({name})
+  }
+
+  setPhoneNumber (phoneNumber) {
+    this.setState({phoneNumber})
   }
 
   componentDidMount () {
@@ -20,8 +34,13 @@ export default class Search extends Component<{}> {
   }
 
   loadCustomers () {
-   const customerService = new CustomerService()
-   return customerService.search({})   
+    let name = null
+    if (this.state.name) {
+      name = this.state.name 
+    }
+   
+    const customerService = new CustomerService()
+    return customerService.search({name})   
       .then((customers) => {
         this.setState({ isLoading: false })
         this.setState({ customers })
@@ -40,6 +59,16 @@ export default class Search extends Component<{}> {
   render() {
     return (
 			<View>
+        <View style={{flexDirection: 'column'}}>
+          <PhoneInput style={{height: 30, marginTop: 10 }} textProps={{placeholder:"Número de Telefone"}} initialCountry='br' value={this.state.phoneNumber} onChangePhoneNumber={phoneNumber => this.setPhoneNumber(phoneNumber)}/>            
+          <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Nome do Cliente" defaultValue={this.state.name} onChangeText={name => this.setName(name)}/> 
+          <Button style={{marginLeft: 5, width: 130, marginTop: 5}} color="blue" icon="account-search" mode="contained" onPress={() => this.renderRefreshControl()}>
+            Pesquisar
+          </Button>      
+        </View>
+
+        <Divider />            
+          
 				<FlatList
 					data={this.state.customers}
 					renderItem={({item: customer}) => this.renderRow(customer)}

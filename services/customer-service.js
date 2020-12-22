@@ -21,7 +21,8 @@ export default class CustomerService {
     }
 
     search (filter = {}) {
-        const query = _prepareQueryParams(filter)        
+        const query = _prepareQueryParams(filter)      
+        console.log('QUERY ', query)  
         return axios.get(ENDPOINT + query)
           .then(res => {
               console.log('RES Data ', JSON.stringify(res.data, null, 3))

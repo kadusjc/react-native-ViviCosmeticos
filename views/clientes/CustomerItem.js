@@ -12,12 +12,12 @@ export default class CustomerItem extends Component<{}> {
   render () {
     return (
       <View style={styles.customerItem}>
-        <View style={styles.info}>
-          <Icon name='g-translate' color='#00aced' />
-          <Text style={styles.name}> {this.props.name}</Text>
+        <View style={styles.info}>          
+          <Icon name='person' color='#00aced' />
+          <Text style={styles.name}>{this.props.name}</Text>
         </View>  
         <View style={styles.info}>
-          <Icon name='g-translate' color='#00aced' />
+          <Icon name='local-phone' color='#00aced'/>
           <Text style={styles.phoneNumber}>{this.props.phoneNumber}</Text>
         </View>
       </View>
@@ -28,7 +28,7 @@ export default class CustomerItem extends Component<{}> {
 const styles = StyleSheet.create({
   customerItem: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#FFFFFF',
     borderBottomColor: '#AAAAAA',
     borderBottomWidth: 2,
@@ -36,22 +36,27 @@ const styles = StyleSheet.create({
   },
   name: {
     flex: 3,
+    paddingLeft: 5,
     alignItems: 'flex-end',
     flexDirection: 'column',
     alignSelf: 'center',
     fontSize: 15,
     color: '#000000',
-    fontWeight: 'bold',
-    padding: 20
+    fontWeight: 'bold'    
   },
   phoneNumber: {
-    paddingLeft: 10,
+    paddingLeft: 5,
+    flex: 3,
+    alignItems: 'flex-end',
     fontSize: 18,
     color: '#000000',
     fontWeight: 'bold',
+    alignSelf: 'center',
   },
   info: {
-    flexDirection: 'column',
-    flex: 1
+    flexDirection: 'row',
+    flex: 1,
+    margin: 2,
+    padding: 5    
   }
 })

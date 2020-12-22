@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+
 import { ScrollView } from 'react-native'
-import { TextInput, Button, Checkbox, Text } from 'react-native-paper';
+import { TextInput, Button, Checkbox, Text, Alert } from 'react-native-paper';
 import PhoneInput from 'react-native-phone-input'
 
 import CustomerService from '../../services/customer-service'
@@ -27,7 +28,7 @@ const Form = () => {
     
     return (
         <ScrollView style={{margin: 10, padding: 10}}>            
-            <PhoneInput style={{height: 30, marginTop: 10 }} placeHolder="Telefone do Cliente" defaultCountry="BR" placeholder="Número de Telefone" value={phoneNumber} onChange={phoneNumber => setPhoneNumber(phoneNumber)}/>            
+            <PhoneInput style={{height: 30, marginTop: 10 }} textProps={{placeholder:"Número de Telefone"}} initialCountry='br' value={phoneNumber} onChangePhoneNumber={phoneNumber => setPhoneNumber(phoneNumber)}/>            
             <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Nome do Cliente" defaultValue={name} onChangeText={name => setName(name)}/> 
             <Text style={{height: 30, marginTop: 10 }} >Compra produtos:</Text>
             <Checkbox.Item label="Avon" status={avon ? 'checked' : 'unchecked'} onPress={() =>  { setAvon(!avon) }}/>
