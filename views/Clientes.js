@@ -11,8 +11,8 @@ const Clientes = () => {
     <Router>
       <Scene key="root">
         <Scene key="customerHome" component={Home} title="Clientes" initial={true} />
-        <Scene key="customerForm" component= {Form} title="Cadastro Cliente" />
-        <Scene key="customerSearch" component= {Search} title="Pesquisa Cliente" />
+        <Scene key="customerForm" component= {Form} title="Cadastrar Cliente" />
+        <Scene key="customerSearch" component= {Search} title="Pesquisar Cliente" />
       </Scene>
     </Router>
   );
