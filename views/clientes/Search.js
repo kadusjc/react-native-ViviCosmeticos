@@ -55,8 +55,13 @@ export default class Search extends Component<{}> {
     this.loadCustomers()
   }
 
+  deleteCustomer (customer) {
+    const customerService = new CustomerService()
+    return customerService.delete(customer, this.renderRefreshControl)
+  }
+
   renderRow (customer) {
-    return <CustomerItem customer={customer}/>
+    return <CustomerItem customer={customer} deleteCustomer={this.deleteCustomer(customer)} />
   }
 
   render() {

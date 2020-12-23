@@ -30,10 +30,10 @@ export default class CustomerItem extends Component<{}> {
           { allPreferences }                    
         </View>
         <View style={styles.info}>  
-          <Button style={styles.roundButton} color="blue" icon="account-plus" mode="contained" onPress={this.props.editCustomer}> 
+          <Button style={styles.roundButton} color="blue" icon="account-plus" mode="contained" onPress={() => this.props.editCustomer}> 
             editar
           </Button>                 
-          <Button style={styles.roundButton} color="red" icon="database-remove" mode="contained" onPress={this.props.deleteCustomer}>
+          <Button style={styles.roundButton} color="red" icon="database-remove" mode="contained" onPress={() => this.props.deleteCustomer}>
             apagar
           </Button>                      
         </View>  
