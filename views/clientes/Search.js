@@ -1,5 +1,5 @@
 import { Actions } from 'react-native-router-flux'
-import { TextInput, Button, Divider } from 'react-native-paper';
+import { TextInput, Button, Divider, ScrollView } from 'react-native-paper';
 import PhoneInput from 'react-native-phone-input'
 
 import React, { Component } from 'react'
@@ -26,7 +26,7 @@ export default class Search extends Component<{}> {
   }
 
   componentDidMount () {
-    return this.loadCustomers()
+    return this.renderRefreshControl()
   }
 
   goToHome () {
@@ -56,66 +56,36 @@ export default class Search extends Component<{}> {
   }
 
   renderRow (customer) {
-    return <CustomerItem name={customer.name} phoneNumber={customer.phoneNumber} />
+    return <CustomerItem customer={customer}/>
   }
 
   render() {
     return (
 			<View>
-        <View style={{flexDirection: 'column'}}>
-          <PhoneInput style={{height: 30, marginTop: 10 }} textProps={{placeholder:"Número de Telefone"}} initialCountry='br' value={this.state.phoneNumber} onChangePhoneNumber={phoneNumber => this.setPhoneNumber(phoneNumber)}/>            
+        <View style={{flexDirection: 'column', margin: 10, padding: 10}}>
           <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Nome do Cliente" defaultValue={this.state.name} onChangeText={name => this.setName(name)}/> 
+          <PhoneInput style={{height: 30, marginTop: 10 }} textProps={{placeholder:"Número de Telefone"}} initialCountry='br' value={this.state.phoneNumber} onChangePhoneNumber={phoneNumber => this.setPhoneNumber(phoneNumber)}/>            
+
           <Button style={{marginLeft: 5, width: 130, marginTop: 5}} color="blue" icon="account-search" mode="contained" onPress={() => this.renderRefreshControl()}>
             Pesquisar
           </Button>      
         </View>
 
         <Divider />            
-          
-				<FlatList
-					data={this.state.customers}
-					renderItem={({item: customer}) => this.renderRow(customer)}
-					keyExtractor={(item, index) => item.phoneNumber}
-					onRefresh={() => this.renderRefreshControl()}
-					refreshing={this.state.isLoading}
-					initialNumToRender={8}
-				/>
+
+        <FlatList
+          style={{maring: 10, padding: 10}}
+          data={this.state.customers}
+          renderItem={({item: customer}) => this.renderRow(customer)}
+          keyExtractor={(item, index) => item._id}
+          onRefresh={() => this.renderRefreshControl()}
+          refreshing={this.state.isLoading}
+          initialNumToRender={4}
+          onEndReachedThreshold={0.7}
+        />
+        
 			</View>
 		)
 	}
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    paddingTop: 24
-  },
-  list: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  listContent: {
-    flex: 1,
-    flexDirection: 'column'
-  },
-  row: {
-    flex: 1,
-    fontSize: 24,
-    padding: 42,
-    borderWidth: 1,
-    borderColor: '#DDDDDD'
-  },
-  sectionDivider: {
-    padding: 8,
-    backgroundColor: '#EEEEEE',
-    alignItems: 'center'
-  },
-  headingText: {
-    flex: 1,
-    fontSize: 24,
-    alignSelf: 'center'
-  }
-})
+}

@@ -15,7 +15,7 @@ export default class CustomerService {
         })
         .catch((error) => {
             console.log('RESPONSE ERROU ', JSON.stringify(error, null, 3))
-            _doAlert('Erro', error.messages, 'error')
+            _doAlert('Erro', error.response.data, 'error')
         })  
         
     }
@@ -28,8 +28,22 @@ export default class CustomerService {
               console.log('RES Data ', JSON.stringify(res.data, null, 3))
               return res.data
           })
-          .catch((error) => _doAlert('Erro', error.messages, 'error'))  
-    }      
+          .catch((error) => _doAlert('Erro', error.response.data, 'error'))  
+    }
+    
+    delete (customer, afterFunction) {
+        console.log('CHEOGU CUSTOMER JSON ', JSON.stringify(customer, null, 3))
+        return axios.delete(`${ENDPOINT}/${customer._id}`)
+            .then(res => {
+                _doAlert('Sucesso', `Cliente ${customer.name} removido com sucesso`, 'success')
+                if (afterFunction) return afterFunction()
+        })
+        .catch((error) => {
+            console.log('RESPONSE ERROU ', JSON.stringify(error, null, 3))
+            _doAlert('Erro',  error.response.data, 'error')
+        })  
+        
+    }
 }
 
 function _prepareQueryParams (filter) {
