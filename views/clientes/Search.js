@@ -34,13 +34,16 @@ export default class Search extends Component<{}> {
   }
 
   loadCustomers () {
-    let name = null
+    let filter = {}
     if (this.state.name) {
-      name = this.state.name 
+      filter.name = this.state.name 
+    }
+    if (this.state.phoneNumber) {
+      filter.phoneNumber = this.state.phoneNumber 
     }
    
     const customerService = new CustomerService()
-    return customerService.search({name})   
+    return customerService.search(filter)   
       .then((customers) => {
         this.setState({ isLoading: false })
         this.setState({ customers })

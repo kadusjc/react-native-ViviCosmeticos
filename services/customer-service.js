@@ -36,17 +36,11 @@ function _prepareQueryParams (filter) {
     let name = filter.name || ''
     let phoneNumber = filter.phoneNumber || ''        
 
-    const params = {}
-    if (name) params.name = name
-    if (phoneNumber) params.phoneNumber = phoneNumber
-
     let query = ''
     if (name || phoneNumber) {
-        query = Object.keys(params)
-                   .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-                   .join('&')
-        console.log('QUERY ', query)               
-        query = '?' + query
+        query = '?'
+        if (name) { query = query + `name=${name}` }
+        if (phoneNumber) { query = query + `phoneNumber=${phoneNumber}` }        
     }
     return query      
 }
