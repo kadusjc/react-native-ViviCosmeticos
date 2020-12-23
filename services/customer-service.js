@@ -6,8 +6,13 @@ const environment = 'production'
 const ENDPOINT = Configuration.getEndpoint(environment) + '/customers'
 
 export default class CustomerService { 
+    
+    saveOrUpdate (customerJson) {
+        if (customerJson._id) return this.update(customerJson)
+        return this.save(customerJson)        
+    }
+
     save (customerJson) {
-        console.log('CHEOGU CUSTOMER JSON ', JSON.stringify(customerJson, null, 3))
         return axios.post(ENDPOINT, customerJson)
             .then(res => {
                 _doAlert('Sucesso', `Cliente ${customerJson.name} salvo com sucesso`, 'success')
@@ -15,7 +20,20 @@ export default class CustomerService {
         })
         .catch((error) => {
             console.log('RESPONSE ERROU ', JSON.stringify(error, null, 3))
-            _doAlert('Erro', error.response.data, 'error')
+            _doAlert('Erro', error.response.data)
+        })  
+        
+    }
+
+    update (customerJson) {
+        return axios.put(ENDPOINT, customerJson)
+            .then(res => {
+                _doAlert('Sucesso', `Cliente ${customerJson.name} atualizado com sucesso`, 'success')
+                return res.data
+        })
+        .catch((error) => {
+            console.log('RESPONSE ERROU ', JSON.stringify(error, null, 3))
+            _doAlert('Erro', error.response.data)
         })  
         
     }
@@ -28,21 +46,16 @@ export default class CustomerService {
               console.log('RES Data ', JSON.stringify(res.data, null, 3))
               return res.data
           })
-          .catch((error) => _doAlert('Erro', error.response.data, 'error'))  
+          .catch((error) => _doAlert('Erro', error.response.data))  
     }
     
-    delete (customer, afterFunction) {
-        console.log('CHEOGU CUSTOMER JSON ', JSON.stringify(customer, null, 3))
+    delete (customer) {
         return axios.delete(`${ENDPOINT}/${customer._id}`)
-            .then(res => {
-                _doAlert('Sucesso', `Cliente ${customer.name} removido com sucesso`, 'success')
-                if (afterFunction) return afterFunction()
-        })
-        .catch((error) => {
-            console.log('RESPONSE ERROU ', JSON.stringify(error, null, 3))
-            _doAlert('Erro',  error.response.data, 'error')
-        })  
-        
+            .then(res => _doAlert('Sucesso', `Cliente ${customer.name} removido com sucesso`, 'success'))        
+            .catch((error) => {
+                console.log('RESPONSE ERROU ', JSON.stringify(error, null, 3))
+                _doAlert('Erro',  error.response.data)
+            })             
     }
 }
 
@@ -59,6 +72,6 @@ function _prepareQueryParams (filter) {
     return query      
 }
 
-function _doAlert (title, text, style) {
-    Alert.alert(title, text,  [{ text: "OK", style }])
+function _doAlert (title, text) {
+    Alert.alert(title, text,  [{ text: "OK", style: 'cancel' }])
 }

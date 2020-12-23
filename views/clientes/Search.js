@@ -1,13 +1,11 @@
+import React, { Component } from 'react'
+import { View, FlatList, Alert } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { TextInput, Button, Divider, ScrollView } from 'react-native-paper';
+import { TextInput, Button, Divider } from 'react-native-paper'
 import PhoneInput from 'react-native-phone-input'
 
-import React, { Component } from 'react'
 import CustomerService from '../../services/customer-service'
 import CustomerItem from './CustomerItem'
-
-
-import {View, FlatList, StyleSheet, Text} from 'react-native'
 
 export default class Search extends Component<{}> {
   state = {
@@ -35,12 +33,8 @@ export default class Search extends Component<{}> {
 
   loadCustomers () {
     let filter = {}
-    if (this.state.name) {
-      filter.name = this.state.name 
-    }
-    if (this.state.phoneNumber) {
-      filter.phoneNumber = this.state.phoneNumber 
-    }
+    if (this.state.name) { filter.name = this.state.name }
+    if (this.state.phoneNumber) { filter.phoneNumber = this.state.phoneNumber  }
    
     const customerService = new CustomerService()
     return customerService.search(filter)   
@@ -55,18 +49,34 @@ export default class Search extends Component<{}> {
     this.loadCustomers()
   }
 
-  deleteCustomer (customer) {
-    const customerService = new CustomerService()
-    return customerService.delete(customer, this.renderRefreshControl)
+  updateCustomer () {
+    const customer = this
+    Actions.customerForm({customer})
   }
 
+  deleteCustomer (customer) {
+    const customerService = new CustomerService()
+    return customerService.delete(customer)
+  }
+
+  confirmDeleteCustomer () {
+    const { ctx, customer } = this
+    const opts = { cancelable: false }
+    const buttons = [
+      { text: 'Sim', onPress: () => ctx.deleteCustomer(customer), style: 'success' }, 
+      { text: 'Não', style: 'cancel' }    
+    ]
+    Alert.alert('Excluir', 'Deseja realmente excluir este cliente?', buttons, opts)
+  }
+  
   renderRow (customer) {
-    return <CustomerItem customer={customer} deleteCustomer={this.deleteCustomer(customer)} />
+    const ctx = {ctx: this, customer}
+    return <CustomerItem style={{paddingBottom: 20}} customer={customer} deleteCustomer={this.confirmDeleteCustomer.bind(ctx)} updateCustomer={this.updateCustomer.bind(customer)} />
   }
 
   render() {
     return (
-			<View>
+			<View style={{flex: 1}}>
         <View style={{flexDirection: 'column', margin: 10, padding: 10}}>
           <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Nome do Cliente" defaultValue={this.state.name} onChangeText={name => this.setName(name)}/> 
           <PhoneInput style={{height: 30, marginTop: 10 }} textProps={{placeholder:"Número de Telefone"}} initialCountry='br' value={this.state.phoneNumber} onChangePhoneNumber={phoneNumber => this.setPhoneNumber(phoneNumber)}/>            
@@ -76,18 +86,16 @@ export default class Search extends Component<{}> {
           </Button>      
         </View>
 
-        <Divider />            
+        <Divider style={{paddingBottom: 5}}/>            
 
-        <FlatList
-          style={{maring: 10, padding: 10}}
-          data={this.state.customers}
-          renderItem={({item: customer}) => this.renderRow(customer)}
-          keyExtractor={(item, index) => item._id}
-          onRefresh={() => this.renderRefreshControl()}
-          refreshing={this.state.isLoading}
-          initialNumToRender={4}
-          onEndReachedThreshold={0.7}
-        />
+         <FlatList
+            style={{marging: 5, padding: 5}}
+            data={this.state.customers}
+            renderItem={({item: customer}) => this.renderRow(customer)}
+            keyExtractor={(item) => item._id}
+            onRefresh={() => this.renderRefreshControl()}
+            refreshing={this.state.isLoading}          
+          />
         
 			</View>
 		)

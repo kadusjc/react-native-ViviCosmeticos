@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { StyleSheet, View, Text} from 'react-native'
 import { Button } from 'react-native-paper'
@@ -12,7 +13,8 @@ export default class CustomerItem extends Component<{}> {
 
   render () {
     const allPreferences = []
-    this.props.customer.preferences.map((pref, index) => {
+    const customerPreferences = _.get(this.props, 'customer.preferences', [])
+    customerPreferences.map((pref, index) => {
       allPreferences.push(<Icon name='check-circle' color='#00aced'></Icon>)
       allPreferences.push(<Text style={styles.preferences}> {pref} </Text>)
     })
@@ -30,10 +32,10 @@ export default class CustomerItem extends Component<{}> {
           { allPreferences }                    
         </View>
         <View style={styles.info}>  
-          <Button style={styles.roundButton} color="blue" icon="account-plus" mode="contained" onPress={() => this.props.editCustomer}> 
+          <Button style={styles.roundButton} color="blue" icon="account-plus" mode="contained" onPress={this.props.updateCustomer}> 
             editar
           </Button>                 
-          <Button style={styles.roundButton} color="red" icon="database-remove" mode="contained" onPress={() => this.props.deleteCustomer}>
+          <Button style={styles.roundButton} color="red" icon="database-remove" mode="contained" onPress={this.props.deleteCustomer}>
             apagar
           </Button>                      
         </View>  
