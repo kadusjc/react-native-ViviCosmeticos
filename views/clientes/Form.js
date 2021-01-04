@@ -16,14 +16,14 @@ const Form = (props = {}) => {
     const [boticario, setBoticario] = useState(false)
     const [eudora, setEudora] = useState(false)
     const [natura, setNatura] = useState(false)
-    
-    // Similar ao componentDidMount e componentDidUpdate:
-    useEffect(() => {
-        if (props.customer) {
-            fillCustomerForm(props.customer)        
-        }
-    })
 
+    // Similar ao componentDidMount e componentDidUpdate:
+    useEffect(() =>  { _loadCustomerForUpdate() }, [])
+    
+    const _loadCustomerForUpdate = () => {
+        if (props.customer) fillCustomerForm(props.customer)                    
+    }
+    
     const fillCustomerForm = (customer) => {
         set_Id(customer._id)
         setName(customer.name)

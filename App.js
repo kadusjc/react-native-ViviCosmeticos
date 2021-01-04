@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BottomNavigation } from 'react-native-paper';
 
 import ClientesRoute from './views/Clientes' 
+import ProdutosRoute from './views/Produtos' 
 import InadimplentesRoute from './views/Inadimplentes' 
 import VendasRoute from './views/Vendas' 
 import CobrancaRoute from './views/Cobranca' 
@@ -10,6 +11,7 @@ const App = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'cliente', title: 'Clientes', icon: 'account-edit', color: '#3F51B5'},
+    { key: 'produtos', title: 'Produtos', icon: 'gift', color: '#D445D9' },
     { key: 'inadimplentes', title: 'Inadimplentes', icon: 'skull-crossbones', color: '#000000' },
     { key: 'venda', title: 'Vender', icon: 'sale', color: '#228B22' },
     { key: 'cobranca', title: 'Gerar Cobrança', icon: 'cash', color: '#607D8B' },
@@ -17,6 +19,7 @@ const App = () => {
 
   const renderScene = BottomNavigation.SceneMap({
     cliente: ClientesRoute,
+    produtos: ProdutosRoute,
     inadimplentes: InadimplentesRoute,
     venda: VendasRoute,
     cobranca: CobrancaRoute,
