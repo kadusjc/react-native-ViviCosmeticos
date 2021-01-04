@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React, { Component } from 'react'
 import { StyleSheet, View, Text} from 'react-native'
 import { Button } from 'react-native-paper'
@@ -15,12 +14,12 @@ export default class ProductsItem extends Component<{}> {
     return (
       <View style={styles.productItem}>
         <View style={styles.info}>          
-          <Icon name='industry' type='font-awesome'  color='#D445D9' />
-          <Text style={styles.name}>{this.props.product.brand} ddd</Text>          
+          <Icon name='industry' type='font-awesome' color='#D445D9' />
+          <Text style={styles.name}>{this.props.product.brand}</Text>          
         </View>  
         <View style={styles.info}>          
           <Icon name='tag' type="font-awesome" color='#D445D9' />
-          <Text style={styles.name}>{this.props.product.category} </Text>          
+          <Text style={styles.name}>{this.props.product.category}</Text>          
         </View>  
         <View style={styles.info}>          
           <Text style={styles.name}>{this.props.product.name} {this.props.product.volume} {this.props.product.measureUnit}</Text>          
