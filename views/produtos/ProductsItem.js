@@ -15,7 +15,7 @@ export default class ProductsItem extends Component<{}> {
     return (
       <View style={styles.productItem}>
         <View style={styles.info}>          
-          <Icon name='factory' type='font-awesome'  color='#D445D9' />
+          <Icon name='industry' type='font-awesome'  color='#D445D9' />
           <Text style={styles.name}>{this.props.product.brand} ddd</Text>          
         </View>  
         <View style={styles.info}>          
@@ -26,10 +26,10 @@ export default class ProductsItem extends Component<{}> {
           <Text style={styles.name}>{this.props.product.name} {this.props.product.volume} {this.props.product.measureUnit}</Text>          
         </View>  
         <View style={styles.info}>  
-          <Button style={styles.roundButton} color="pink" icon="account-plus" mode="contained" onPress={this.props.updateProduct}> 
+          <Button style={styles.roundButton} color="blue" icon="account-plus" mode="contained" onPress={this.props.updateProduct}> 
             editar
           </Button>                 
-          <Button style={styles.roundButton} color="pink" icon="database-remove" mode="contained" onPress={this.props.deleteProduct}>
+          <Button style={styles.roundButton} color="red" icon="database-remove" mode="contained" onPress={this.props.deleteProduct}>
             apagar
           </Button>                      
         </View>  
