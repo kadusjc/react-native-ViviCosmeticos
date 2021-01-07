@@ -53,7 +53,7 @@ const Form = (props = {}) => {
     
     return (
         <ScrollView style={{margin: 10, padding: 10}}>            
-            <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Nome do Cliente" value={name} onChangeText={name => setName(name)}/> 
+            <TextInput style={{height: 30, marginTop: 10 }} type="text" placeholder="Nome do Cliente" value={name} onChangeText={name => setName(name)}/> 
             <PhoneInput style={{height: 30, marginTop: 10 }} textProps={{placeholder:"Número de Telefone"}} initialCountry='br' value={phoneNumber} onChangePhoneNumber={phoneNumber => setPhoneNumber(phoneNumber)}/>            
             
             <Text style={{height: 30, marginTop: 10 }} >Compra produtos:</Text>

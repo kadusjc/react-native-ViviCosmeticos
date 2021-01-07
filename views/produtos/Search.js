@@ -56,6 +56,7 @@ export default class Search extends Component<{}> {
 
   updateProduct () {
     const product = this
+    product.volume = product.volume.toString()
     Actions.productForm({product})
   }
 
@@ -83,9 +84,9 @@ export default class Search extends Component<{}> {
     return (
 			<View style={{flex: 1}}>
         <View style={{flexDirection: 'column', margin: 10, padding: 10}}>
-          <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Marca do Produto" defaultValue={this.state.brand} onChangeText={brand => this.setBrand(brand)}/> 
-          <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Categoria do Produto" defaultValue={this.state.category} onChangeText={category => this.setCategory(category)}/> 
-          <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Nome do Produto" defaultValue={this.state.name} onChangeText={name => this.setName(name)}/> 
+          <TextInput style={{height: 30, marginTop: 10 }} type="text" placeholder="Marca do Produto" defaultValue={this.state.brand} onChangeText={brand => this.setBrand(brand)}/> 
+          <TextInput style={{height: 30, marginTop: 10 }} type="text" placeholder="Categoria do Produto" defaultValue={this.state.category} onChangeText={category => this.setCategory(category)}/> 
+          <TextInput style={{height: 30, marginTop: 10 }} type="text" placeholder="Nome do Produto" defaultValue={this.state.name} onChangeText={name => this.setName(name)}/> 
           
           <Button style={{marginLeft: 5, width: 130, marginTop: 5}} color="pink" icon="account-search" mode="contained" onPress={() => this.renderRefreshControl()}>
             Pesquisar

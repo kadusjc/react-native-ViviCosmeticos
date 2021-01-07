@@ -14,7 +14,7 @@ const Home = () => {
     }
 
     return (
-    <View style={{ flex: 1, flexDirection: "column", backgroundColor: "white" }}>
+    <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white' }}>
         <Image source={logo} style={{ marginLeft: 60, resizeMode: "cover", justifyContent: "center", alignContent: "center"}}></Image>
         <StatusBar hidden={true}/>  
         <Text style={{textAlign: 'center', color: 'black', fontWeight: 'bold', fontFamily: 'Serif', fontSize: 20, marginTop: 10, padding: 18}}>
@@ -24,7 +24,7 @@ const Home = () => {
         <Text style={{textAlign: 'left', color: 'black', fontWeight: 'normal', fontFamily: 'Serif', fontSize: 18, marginTop: 10, padding: 20}}>
             Cadastre novos produtos através do botão "Adicionar Produtos"
         </Text>
-        <Button style={{marginLeft: 20, width: 250, marginTop: 5}} color="pink" icon="account-plus" mode="contained" onPress={() => goToForm()}>
+        <Button style={{marginLeft: 20, width: 250, marginTop: 5, color: 'white'}} color="pink" icon="account-plus" mode="contained" onPress={() => goToForm()}>
             Adicionar Produtos
         </Button>      
 

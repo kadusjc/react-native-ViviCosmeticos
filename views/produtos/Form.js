@@ -9,7 +9,7 @@ const Form = (props = {}) => {
     const [category, setCategory] = useState('')
     const [brand, setBrand] = useState('AVON')    
     const [name, setName] = useState('')
-    const [volume, setVolume] = useState(0)
+    const [volume, setVolume] = useState('')
     const [measureUnit, setMeasureUnit] = useState('ml')
     const [_id, set_Id] = useState(null)
     
@@ -57,8 +57,8 @@ const Form = (props = {}) => {
                 <Picker.Item label="NATURA" value="NATURA" />
             </Picker>
 
-            <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Categoria do Produto" value={category} onChangeText={category => setCategory(category)}/> 
-            <TextInput style={{height: 30, marginTop: 10 }} type="text" autoCapitalize="true" placeholder="Nome do Produto" value={name} onChangeText={name => setName(name)}/> 
+            <TextInput style={{height: 30, marginTop: 10 }} type="text" placeholder="Categoria do Produto" value={category} onChangeText={category => setCategory(category)}/> 
+            <TextInput style={{height: 30, marginTop: 10 }} type="text" placeholder="Nome do Produto" value={name} onChangeText={name => setName(name)}/> 
             <TextInput style={{height: 30, marginTop: 10 }} returnKeyType={'next'} keyboardType={'phone-pad'} placeholder="Volume do Produto" value={volume} onChangeText={volume => setVolume(volume)}/> 
 
             <Picker selectedValue={measureUnit} style={{height: 50, width: 200}} placeholder="Unidade de Medida do Produto"
